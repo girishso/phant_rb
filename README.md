@@ -1,6 +1,8 @@
 # PhantRb
 
-TODO: Write a gem description
+A Ruby client for Phant. See [data.sparkfun.com](https://data.sparkfun.com/) for more information.
+
+This is a work in progress.
 
 ## Installation
 
@@ -18,7 +20,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+client = PhantRb::Client.new "PUBLIC_KEY", %w(humidity temp), private_key: 'PRIVATE_KEY'
+client.log(22.7, 17.8)
+
+data = client.get()
+puts data
+```
 
 ## Contributing
 
@@ -27,3 +35,6 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+
+
