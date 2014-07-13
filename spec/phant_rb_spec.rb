@@ -1,7 +1,10 @@
 #require 'spec_helper'
 
 describe PhantRb do
-  it 'does stuff' do
-    pending # no code yet
-  end
+  it 'logs data'
+  it 'reads data'
+  it 'completely deletes a stream'
+  it 'clears a stream'
+  it 'returns stats for a stream'
+  it 'returns rate limits'
 end
