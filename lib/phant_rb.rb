@@ -19,8 +19,9 @@ module PhantRb
     end
 
     def get
-      @last_response = RestClient.get @opts[:base_url] + "output/" + @public_key + ".json",
+      res = RestClient::Resource.new @opts[:base_url] + "output/" + @public_key + ".json",
            'Phant-Private-Key' => @opts[:private_key]
+      @last_response = res.get
       JSON.parse @last_response.body
     end
 
