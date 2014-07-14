@@ -64,5 +64,11 @@ client = PhantRb::Client.new "PUBLIC_KEY", %w(humidity temp), {private_key: 'PRI
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
+## Licence
 
+MIT License
+
+This software is provided as is, use it your own risk.
+
+Brought to you by: [Cube Root Software](http://www.cuberoot.in) (c) 2014
 
