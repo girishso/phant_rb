@@ -25,17 +25,26 @@ module PhantRb
       JSON.parse @last_response.body
     end
 
-    def clear
-      conn = rest_conn 'input'
-      @last_response = conn.delete
+    def stats
+      conn = rest_conn 'stats'
+      @last_response = conn.get
       pp @last_response.headers
       pp @last_response.body
       Hashie::Mash.new(JSON.parse(@last_response.body))
     end
 
+    def clear
+      conn = rest_conn 'input'
+      @last_response = conn.delete
+      Hashie::Mash.new(JSON.parse(@last_response.body))
+    end
+
     private
       def rest_conn(type)
-        url = URI.join @opts[:base_url], "/#{type}/", "#{@public_key}.json"
+        url = case type
+              when 'stats' then URI.join @opts[:base_url], "/output/", "#{@public_key}/stats.json"
+              else  URI.join @opts[:base_url], "/#{type}/", "#{@public_key}.json"
+              end
         RestClient::Resource.new url.to_s,
           {:headers => {'Phant-Private-Key' => @opts[:private_key]}}
       end

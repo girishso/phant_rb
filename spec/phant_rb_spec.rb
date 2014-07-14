@@ -17,11 +17,15 @@ describe PhantRb do
 
   it 'completely deletes a stream'
 
+  it 'returns stats for a stream' do
+    resp = @client.stats
+    expect(resp.has_key?(:remaining)).to be true
+  end
+
   it 'clears a stream' do
     resp = @client.clear
     expect(resp.success).to be true
   end
 
-  it 'returns stats for a stream'
   it 'returns rate limits'
 end
