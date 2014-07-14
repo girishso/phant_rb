@@ -21,22 +21,27 @@ module PhantRb
 
     def get
       conn = rest_conn 'output'
-      @last_response = conn.get
-      JSON.parse @last_response.body
+      response = conn.get
+      JSON.parse response.body
     end
 
     def stats
       conn = rest_conn 'stats'
-      @last_response = conn.get
-      pp @last_response.headers
-      pp @last_response.body
-      Hashie::Mash.new(JSON.parse(@last_response.body))
+      response = conn.get
+      Hashie::Mash.new(JSON.parse(response.body))
     end
 
     def clear
       conn = rest_conn 'input'
-      @last_response = conn.delete
-      Hashie::Mash.new(JSON.parse(@last_response.body))
+      response = conn.delete
+      Hashie::Mash.new(JSON.parse(response.body))
+    end
+
+    def rate_limits
+      unless !@last_response.nil? && @last_response.headers.has_key?(:x_rate_limit_remaining)
+        raise "No rate limit headers found. PhantRb::Client#log must be called before this."
+      end
+      Hashie::Mash.new(@last_response.headers)
     end
 
     private
