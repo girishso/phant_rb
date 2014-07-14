@@ -22,8 +22,15 @@ module PhantRb
     def get
       conn = rest_conn 'output'
       @last_response = conn.get
-      puts @last_response.body
       JSON.parse @last_response.body
+    end
+
+    def clear
+      conn = rest_conn 'input'
+      @last_response = conn.delete
+      pp @last_response.headers
+      pp @last_response.body
+      Hashie::Mash.new(JSON.parse(@last_response.body))
     end
 
     private

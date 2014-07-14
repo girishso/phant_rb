@@ -16,7 +16,12 @@ describe PhantRb do
   end
 
   it 'completely deletes a stream'
-  it 'clears a stream'
+
+  it 'clears a stream' do
+    resp = @client.clear
+    expect(resp.success).to be true
+  end
+
   it 'returns stats for a stream'
   it 'returns rate limits'
 end
