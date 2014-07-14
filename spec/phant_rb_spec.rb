@@ -11,7 +11,8 @@ describe PhantRb do
   end
 
   it 'reads data' do
-    @client.get
+    resp = @client.get
+    expect(resp).to be_an(Array)
   end
 
   it 'completely deletes a stream'

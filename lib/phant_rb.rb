@@ -14,24 +14,23 @@ module PhantRb
     end
 
     def log(*data)
-      @last_response = request data
+      conn = rest_conn 'input'
+      @last_response = conn.post URI.encode_www_form(@fields.zip(data))
       Hashie::Mash.new(JSON.parse(@last_response.body))
     end
 
     def get
-      res = RestClient::Resource.new @opts[:base_url] + "output/" + @public_key + ".json",
-           'Phant-Private-Key' => @opts[:private_key]
-      @last_response = res.get
+      conn = rest_conn 'output'
+      @last_response = conn.get
+      puts @last_response.body
       JSON.parse @last_response.body
     end
 
     private
-      def request(data)
-        RestClient.post(
-           @opts[:base_url] + "input/" + @public_key + ".json",
-           URI.encode_www_form(@fields.zip(data)),
-           'Phant-Private-Key' => @opts[:private_key]
-        )
+      def rest_conn(type)
+        url = URI.join @opts[:base_url], "/#{type}/", "#{@public_key}.json"
+        RestClient::Resource.new url.to_s,
+          {:headers => {'Phant-Private-Key' => @opts[:private_key]}}
       end
   end
 end
