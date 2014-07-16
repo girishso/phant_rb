@@ -19,8 +19,8 @@ module PhantRb
       Hashie::Mash.new(JSON.parse(@last_response.body))
     end
 
-    def get
-      conn = rest_conn 'output'
+    def get(params = {})
+      conn = rest_conn 'output', params
       response = conn.get
       JSON.parse response.body
     end
@@ -45,11 +45,17 @@ module PhantRb
     end
 
     private
-      def rest_conn(type)
+      def rest_conn(type, params = nil)
         url = case type
               when 'stats' then URI.join @opts[:base_url], "/output/", "#{@public_key}/stats.json"
-              else  URI.join @opts[:base_url], "/#{type}/", "#{@public_key}.json"
+              else
+                if params.nil?
+                  URI.join @opts[:base_url], "/#{type}/", "#{@public_key}.json"
+                else
+                  URI.join @opts[:base_url], "/#{type}/", "#{@public_key}.json?" + URI.encode_www_form(params)
+                end
               end
+
         RestClient::Resource.new url.to_s,
           {:headers => {'Phant-Private-Key' => @opts[:private_key]}}
       end

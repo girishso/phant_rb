@@ -22,6 +22,11 @@ describe PhantRb do
     expect(resp).to be_an(Array)
   end
 
+  it 'reads paginated data' do
+    resp = @client.get(page: 1)
+    expect(resp).to be_an(Array)
+  end
+
   it 'returns stats for a stream' do
     resp = @client.stats
     expect(resp.has_key?(:remaining)).to be true
