@@ -30,6 +30,9 @@ client.log(22.7, 17.8)
 data = client.get()
 puts data
 
+# paginate data
+data = client.get(page: 1)
+
 # retrieve info about the current state of your stream, http://phant.io/docs/output/stats/
 stats = client.stats()
 puts stats.pageCount
@@ -53,7 +56,6 @@ client = PhantRb::Client.new "PUBLIC_KEY", %w(humidity temp), {private_key: 'PRI
 
 ## TODO
 * delete a stream
-* paginate data
 * use local server in specs
 
 ## Contributing
