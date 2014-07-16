@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = PhantRb::VERSION
   spec.authors       = ["Girish S"]
   spec.email         = ["girish.sonawane@gmail.com"]
-  spec.summary       = %q{Ruby client library for Sparkfun's Phant}
-  spec.description   = %q{Ruby client library for Sparkfun's Phant}
+  spec.summary       = %q{Ruby client for Sparkfun's Phant https://data.sparkfun.com/}
+  spec.description   = %q{Ruby client for Sparkfun's Phant https://data.sparkfun.com/}
   spec.homepage      = ""
   spec.license       = "MIT"
 
